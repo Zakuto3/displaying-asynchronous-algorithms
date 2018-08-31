@@ -1,0 +1,69 @@
+<!DOCTYPE HTML Frameset DTD>
+<html lang="en">
+<head>
+<title>Experiment 1</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">  
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">   	
+</head>
+
+<body>
+	
+	<div id="CanvasPosition" style="position: absolute; top: 30%; left:30%;" >	
+		<button id="start">Add Sorting Boi</button>
+		<canvas id="Canvas1" width="600" height="300" px=50; style="border:1px solid #d3d3d3;"></canvas>	
+	</div>
+
+<script>
+
+let canv = $("#Canvas1");
+let ctx = canv[0].getContext('2d');
+let values = [canv.width()];
+
+for (let i = 0; i < canv.width(); i++) {
+	values[i] = Math.floor(Math.random() * canv.height());
+		ctx.beginPath();
+		ctx.moveTo(i, canv.width());
+		ctx.lineTo(i, values[i]);
+		ctx.stroke();
+}
+	
+$("#start").on('click',kek);
+async function kek(){
+	for (let k = 0; k < values.length; k++) {
+		for (let j = 0; j < values.length-k-1; j++) {			
+			var curr = values[j+1];
+			var next = values[j]
+			if (curr > next) {
+				[ values[j], values[j+1] ] = [ values[j+1], values[j]]		
+				await sleep(0);			 
+		}	
+		}
+	}
+}
+
+function RefreshDraw(){
+	ctx.clearRect(0, 0, canv.width(),canv.height());
+	ctx.beginPath();
+	for (let z = 0; z < canv.width(); z++) {		
+			
+		ctx.moveTo(z, canv.width());
+		ctx.lineTo(z, values[z]);	
+	}
+	ctx.stroke();
+}
+var interval = setInterval(RefreshDraw, 1000/60);
+
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+
+console.log("end reached");
+</script>
+</body>
+</html>
