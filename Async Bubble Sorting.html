@@ -32,8 +32,8 @@ for (let i = 0; i < canv.width(); i++) {
 		ctx.stroke();
 }
 	
-$("#start").on('click',kek);
-async function kek(){
+$("#start").on('click',StartSort);
+async function StartSort(){
 	for (let k = 0; k < values.length; k++) {
 		for (let j = 0; j < values.length-k-1; j++) {			
 			var curr = values[j+1];
